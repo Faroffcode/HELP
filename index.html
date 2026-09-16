@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Support Faroff's independent development and free projects.">
+  <title>Faroff — Support Independent Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Faroff home"><span class="brand-mark">F</span><span>Faroff</span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="active" href="#home">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="donate.html">Donate</a>
+      <a href="#about">About</a>
+    </nav>
+    <button class="support-top" onclick="location.href='donate.html'">♥ Support</button>
+  </header>
+
+  <main id="home">
+    <section class="hero container">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span> Indie Developer</span>
+        <h1>Support Independent<br><span>Development</span></h1>
+        <p>Help me keep building free apps, open-source projects, and useful tools for everyone. Your support fuels my journey and makes a real difference. <b>♥</b></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="donate.html">♥ Donate Now</a>
+          <a class="btn btn-ghost" href="#projects">↗ View My Projects</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun-glow"></div>
+        <div class="moon"></div>
+        <div class="mountain mountain-back"></div>
+        <div class="mountain mountain-mid"></div>
+        <div class="mountain mountain-front"></div>
+        <div class="person"></div>
+        <div class="quote-art">Small contributions<br>create big<br>opportunities.</div>
+      </div>
+    </section>
+
+    <section class="progress-card container" aria-label="Donation progress">
+      <div class="progress-main">
+        <div class="card-label">🎯 Donation Progress</div>
+        <div class="progress-number"><strong id="raised">₹0</strong> <span>/ ₹<span id="goal">0</span></span></div>
+        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+        <div class="progress-meta"><span id="progressPercent">0%</span><span id="goalLabel">Goal</span></div>
+      </div>
+      <div class="quick-amounts">
+        <div class="card-label">♥ Quick Amounts</div>
+        <div class="amount-grid">
+          <a href="donate.html?amount=50">₹50</a><a href="donate.html?amount=100">₹100</a><a href="donate.html?amount=250">₹250</a>
+          <a href="donate.html?amount=500">₹500</a><a href="donate.html?amount=1000">₹1000</a><a href="donate.html">Custom</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="support-section container">
+      <div class="support-intro"><span class="section-kicker">♥ WHY SUPPORT?</span><h2>Your Support<br>Matters</h2><p>Donations help me cover the cost of hosting, server resources, development tools and keep my projects running. Even a small contribution makes a big difference.</p><p class="signature">Thank you for being here! ♥<br><span>— Faroff</span></p></div>
+      <div class="impact-grid">
+        <div class="impact"><span>⌘</span><b>Independent Developer</b><p>Building in my free time, with passion.</p></div>
+        <div class="impact"><span>◉</span><b>Open Source</b><p>Most of my projects are free to use.</p></div>
+        <div class="impact"><span>♥</span><b>Community Driven</b><p>Your support helps me keep going.</p></div>
+        <div class="impact"><span>✦</span><b>Better Tomorrow</b><p>Together we can build useful tools.</p></div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects container">
+      <div class="section-heading"><div><span class="section-kicker">🚀 MY PROJECTS</span><h2>Projects You’re Supporting</h2></div><a href="https://github.com/Faroffcode" target="_blank" rel="noopener">View All Projects →</a></div>
+      <div class="project-grid">
+        <article class="project-card"><span class="project-icon blue">♫</span><span class="tag">Android</span><h3>robinHood</h3><p>Music Application</p><small>A modern, fast and lightweight music player for Android.</small><a href="https://github.com/Faroffcode/robinHood" target="_blank" rel="noopener">View Project →</a></article>
+        <article class="project-card"><span class="project-icon blue">◎</span><span class="tag">Web</span><h3>R-Hood-web</h3><p>Web Platform</p><small>The official website for robinHood with more features and content.</small><a href="https://github.com/Faroffcode/R-Hood-web" target="_blank" rel="noopener">View Project →</a></article>
+        <article class="project-card"><span class="project-icon pink">▶</span><span class="tag">Android</span><h3>RHvdo</h3><p>Video Player</p><small>A simple, fast and ad-free video player for Android.</small><a href="https://github.com/Faroffcode/RHvdo" target="_blank" rel="noopener">View Project →</a></article>
+      </div>
+    </section>
+
+    <section class="final-cta container"><div class="heart-orb">♥</div><div><span class="section-kicker">BE PART OF SOMETHING BIGGER</span><h2>Your support keeps me going.</h2><p>You’re not just donating money; you’re supporting independent development and free projects.</p></div><a class="btn btn-primary" href="donate.html">♥ Donate Now</a></section>
+  </main>
+
+  <footer class="footer container"><div><a class="brand" href="index.html"><span class="brand-mark">F</span><span>Faroff</span></a><small>Build. Create. Share.</small></div><div class="footer-links"><a href="#home">Home</a><a href="#projects">Projects</a><a href="donate.html">Donate</a><a href="#about">About</a></div><div class="footer-social"><a href="https://github.com/Faroffcode" target="_blank" rel="noopener">GitHub</a><span>Made with ♥ by Faroff</span></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
