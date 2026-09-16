@@ -30,15 +30,13 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  // Replace this with your real UPI ID before publishing.
-  const UPI_ID = 'YOUR_UPI_ID@upi';
+  const UPI_ID = 'imtiaz-haque@ptaxis';
   const PAYEE_NAME = 'Faroff';
   const amountInput = document.getElementById('amount');
   const qrAmount = document.getElementById('qrAmount');
   const qrBox = document.getElementById('qrBox');
   const upiLink = document.getElementById('upiLink');
   let upiUri = '';
-  let qr;
 
   function buildUpiUri() {
     const amount = Math.max(1, Number(amountInput.value || 0));
@@ -47,7 +45,7 @@
     upiUri = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${amount.toFixed(2)}&cu=INR`;
     upiLink.href = upiUri;
     qrBox.innerHTML = '';
-    qr = new QRCode(qrBox, {text: upiUri, width: 198, height: 198, colorDark: '#07111f', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M});
+    new QRCode(qrBox, {text: upiUri, width: 198, height: 198, colorDark: '#07111f', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M});
   }
 
   function copyUpi(){
