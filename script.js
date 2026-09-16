@@ -1,10 +1,10 @@
-const DONATION_DATA = 'data/donation.json';
+const DONATION_DATA = 'https://raw.githubusercontent.com/Faroffcode/HELP/main/data/donation.json';
 
 async function loadDonationProgress() {
   const raisedEl = document.getElementById('raised');
   if (!raisedEl) return;
   try {
-    const response = await fetch(`${DONATION_DATA}?v=${Date.now()}`);
+    const response = await fetch(`${DONATION_DATA}?v=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) throw new Error('Unable to load donation data');
     const data = await response.json();
     const raised = Number(data.raised) || 0;
@@ -16,7 +16,7 @@ async function loadDonationProgress() {
     document.getElementById('progressFill').style.width = `${percent}%`;
     document.getElementById('goalLabel').textContent = data.label || 'Current development goal';
   } catch (error) {
-    console.warn(error);
+    console.warn('Donation data error:', error);
   }
 }
 loadDonationProgress();
