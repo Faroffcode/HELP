@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#07111f">
+  <title>Donate — Faroff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
+</head>
+<body class="donate-page">
+<header class="site-header"><a class="brand" href="index.html"><span class="brand-mark">F</span><span>Faroff</span></a><nav class="nav"><a href="index.html#home">Home</a><a href="index.html#projects">Projects</a><a class="active" href="donate.html">Donate</a><a href="index.html#about">About</a></nav><a class="support-top" href="index.html">← Home</a></header>
+<main class="donate-shell container">
+  <section class="donate-panel">
+    <span class="eyebrow"><span class="dot"></span> Support Independent Development</span>
+    <h1>Choose your contribution ❤️</h1>
+    <p>Enter any amount. Your UPI app will open with the amount filled in, or scan the generated QR code.</p>
+    <div class="amount-input"><span>₹</span><input id="amount" type="number" inputmode="decimal" min="1" step="1" value="250" aria-label="Donation amount"></div>
+    <div class="quick-row"><button type="button" data-amount="50">₹50</button><button type="button" data-amount="100">₹100</button><button type="button" data-amount="250">₹250</button><button type="button" data-amount="500">₹500</button><button type="button" data-amount="1000">₹1000</button></div>
+    <div class="qr-area">
+      <div><div id="qrBox" class="qr-box"><img id="qrImage" alt="UPI payment QR code"></div></div>
+      <div><div class="card-label">Pay ₹<span id="qrAmount">250</span> via UPI</div><p class="file-note">Scan the QR code with any compatible UPI app. On mobile, use the button below to open your payment app.</p><a id="upiLink" class="btn btn-primary" href="#">📱 Open UPI App</a><a class="payment-link" href="#" onclick="copyUpi();return false">Copy UPI ID</a><span id="copyStatus" class="file-note" style="margin-left:8px"></span></div>
+    </div>
+    <form id="donationForm">
+      <div class="form-row"><label for="name">Your name <span class="file-note">(optional)</span></label><input id="name" name="name" maxlength="60" placeholder="How should we thank you?"></div>
+      <div class="form-row"><label for="note">Message <span class="file-note">(optional)</span></label><textarea id="note" maxlength="250" placeholder="Leave a short message..."></textarea></div>
+      <div class="form-row"><label for="screenshot">Payment screenshot <span class="file-note">(optional)</span></label><input id="screenshot" type="file" accept="image/*"><span class="file-note">The screenshot stays on your device in this no-database version; it is not uploaded.</span></div>
+      <div class="form-row"><label><input id="anonymous" type="checkbox"> Show me as Anonymous</label></div>
+      <div class="submit-wrap"><button class="btn btn-primary" type="submit">I've Completed Payment →</button></div>
+    </form>
+  </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  // Replace this with your real UPI ID before publishing.
+  const UPI_ID = 'YOUR_UPI_ID@upi';
+  const PAYEE_NAME = 'Faroff';
+  const amountInput = document.getElementById('amount');
+  const qrAmount = document.getElementById('qrAmount');
+  const qrImage = document.getElementById('qrImage');
+  const upiLink = document.getElementById('upiLink');
+  let upiUri = '';
+
+  function buildUpiUri() {
+    const amount = Math.max(1, Number(amountInput.value || 0));
+    amountInput.value = amount;
+    qrAmount.textContent = amount.toLocaleString('en-IN');
+    upiUri = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${amount.toFixed(2)}&cu=INR`;
+    upiLink.href = upiUri;
+    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=420x420&margin=10&data=${encodeURIComponent(upiUri)}`;
+  }
+
+  function copyUpi(){
+    navigator.clipboard?.writeText(UPI_ID).then(()=>{document.getElementById('copyStatus').textContent='Copied!'}).catch(()=>{document.getElementById('copyStatus').textContent=UPI_ID});
+  }
+
+  document.querySelectorAll('[data-amount]').forEach(button => button.addEventListener('click',()=>{amountInput.value=button.dataset.amount;buildUpiUri()}));
+  amountInput.addEventListener('input', buildUpiUri);
+  document.getElementById('donationForm').addEventListener('submit', event => {
+    event.preventDefault();
+    const name = document.getElementById('anonymous').checked ? 'Anonymous' : (document.getElementById('name').value.trim() || 'Supporter');
+    const amount = Math.max(1, Number(amountInput.value || 0));
+    sessionStorage.setItem('faroffDonation', JSON.stringify({name, amount, note:document.getElementById('note').value.trim()}));
+    location.href = 'thank-you.html';
+  });
+
+  const queryAmount = new URLSearchParams(location.search).get('amount');
+  if (queryAmount && Number(queryAmount) > 0) amountInput.value = Math.round(Number(queryAmount));
+  buildUpiUri();
+</script>
+</body>
+</html>
