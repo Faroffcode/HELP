@@ -16,7 +16,7 @@
     <div class="amount-input"><span>₹</span><input id="amount" type="number" inputmode="decimal" min="1" step="1" value="250" aria-label="Donation amount"></div>
     <div class="quick-row"><button type="button" data-amount="50">₹50</button><button type="button" data-amount="100">₹100</button><button type="button" data-amount="250">₹250</button><button type="button" data-amount="500">₹500</button><button type="button" data-amount="1000">₹1000</button></div>
     <div class="qr-area">
-      <div><div id="qrBox" class="qr-box"><img id="qrImage" alt="UPI payment QR code"></div></div>
+      <div><div id="qrBox" class="qr-box"></div></div>
       <div><div class="card-label">Pay ₹<span id="qrAmount">250</span> via UPI</div><p class="file-note">Scan the QR code with any compatible UPI app. On mobile, use the button below to open your payment app.</p><a id="upiLink" class="btn btn-primary" href="#">📱 Open UPI App</a><a class="payment-link" href="#" onclick="copyUpi();return false">Copy UPI ID</a><span id="copyStatus" class="file-note" style="margin-left:8px"></span></div>
     </div>
     <form id="donationForm">
@@ -35,9 +35,10 @@
   const PAYEE_NAME = 'Faroff';
   const amountInput = document.getElementById('amount');
   const qrAmount = document.getElementById('qrAmount');
-  const qrImage = document.getElementById('qrImage');
+  const qrBox = document.getElementById('qrBox');
   const upiLink = document.getElementById('upiLink');
   let upiUri = '';
+  let qr;
 
   function buildUpiUri() {
     const amount = Math.max(1, Number(amountInput.value || 0));
@@ -45,7 +46,8 @@
     qrAmount.textContent = amount.toLocaleString('en-IN');
     upiUri = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${amount.toFixed(2)}&cu=INR`;
     upiLink.href = upiUri;
-    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=420x420&margin=10&data=${encodeURIComponent(upiUri)}`;
+    qrBox.innerHTML = '';
+    qr = new QRCode(qrBox, {text: upiUri, width: 198, height: 198, colorDark: '#07111f', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M});
   }
 
   function copyUpi(){
